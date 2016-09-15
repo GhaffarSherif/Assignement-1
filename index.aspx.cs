@@ -30,8 +30,11 @@ public partial class index : System.Web.UI.Page
         {
             Session["Username"] = enteredUserName;
             Session["Password"] = enteredPassword;
+            incorrectUserPass.Visible = false;
             Response.Redirect("~/main.aspx");
         }
+        else
+            incorrectUserPass.Visible = true;
     }
 
     protected void registerButton_Click(object sender, EventArgs e)
