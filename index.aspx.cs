@@ -22,8 +22,8 @@ public partial class index : System.Web.UI.Page
         dataContext = new UserDataContext();
 
         var loginInfo = from profile in dataContext.Profiles
-                        where profile.Username == enteredUserName &&
-                              profile.Password == enteredPassword
+                        where profile.Username.Equals(enteredUserName) &&
+                              profile.Password.Equals(enteredPassword)
                         select profile;
 
         if (loginInfo.Any())
