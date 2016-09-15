@@ -8,14 +8,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <p>
-            &nbsp;</p>
     <div>
     
         
         <div id="view" runat="server">
             <h3>User Information:</h3>
-            <p>&nbsp;</p>
             Username:
             <asp:Label ID="username" runat="server"></asp:Label>
             <br />
@@ -32,10 +29,16 @@
             <asp:Label ID="address" runat="server"></asp:Label>
             <br />
             <br />
-            <br />
         </div>
-        <br />
-        <br />
+        <table border="1">
+            <tr>
+                <th>Time</th>
+                <th>Message</th>
+                <th>From</th>
+                <th>Reply</th>
+            </tr>
+            <asp:PlaceHolder runat="server" ID="messagesTable"></asp:PlaceHolder>
+        </table>
         <br />
         <div id="editor" runat="server">
         <h3>Edit Profile:</h3>
@@ -78,6 +81,7 @@
                 </tr>
             </table>
         <asp:RegularExpressionValidator  ID="dateValidator" runat="server" ControlToValidate="dateOfBirthTextBox" Display="Dynamic" ErrorMessage="Please enter a date in the format &quot; MM/DD/YYYY&quot;" ForeColor="Red" ValidationExpression="^(?:0[1-9]|1[12])/(?:[0-2][0-9]|3[01])/[0-9]{4}"></asp:RegularExpressionValidator>
+            <br />
             <br />
             <asp:Button ID="editButton" runat="server" Text="Edit" Width="6em" OnClick="editButton_Click" />                    
         </div>
