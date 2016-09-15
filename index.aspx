@@ -6,32 +6,32 @@
 <head runat="server">
     <title></title>
 </head>
-<body style="height: 644px">
+<body>
     <form id="form1" runat="server">
-    <div>
-    <div style="height: 486px">
-            <div style="position: relative; left: 0%; right: 0%; top: 0px; height: 413px;" >
-    
-                Please Enter login information:<br />
-                Username:<br />
-                <asp:TextBox ID="userNameTextBox" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ValidationGroup="valGroup1" ID="RequiredFieldValidator1" runat="server" ControlToValidate="userNameTextBox" Display="Dynamic" ErrorMessage="Please enter a username!" ForeColor="Red"></asp:RequiredFieldValidator>
-                <br />
-                Password:<br />
-                <asp:TextBox ID="lastNameTextBox" runat="server" TextMode="Password"></asp:TextBox>
-                <asp:RequiredFieldValidator ValidationGroup="valGroup1" ID="RequiredFieldValidator2" runat="server" ControlToValidate="lastNameTextBox" Display="Dynamic" ErrorMessage="Please enter a lastname!" ForeColor="Red"></asp:RequiredFieldValidator>
-                <br />
-                <asp:Button ValidationGroup="valGroup1" ID="loginButton" runat="server" Text="Login" Width="5em" />
-    
-                <asp:Button ID="registerButton" runat="server" Text="Register" Width="5em" OnClick="registerButton_Click" />
-                 
-        
-                <br />
-                 
-        
-            </div>
-        
-            </div>
+        <div>
+            <h3>Please Enter login information:</h3>
+                
+            <table>
+                <tr>
+                    <td>
+                        Username:<br />
+                        <asp:TextBox ID="userNameTextBox" runat="server"></asp:TextBox>
+                        <br />
+                        <asp:RequiredFieldValidator ValidationGroup="valGroup1" ID="RequiredFieldValidator1" runat="server" ControlToValidate="userNameTextBox" Display="Dynamic" ErrorMessage="Please enter a username!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+                    <td>
+                        Password:<br />
+                        <asp:TextBox ID="passwordTextBox" runat="server" TextMode="Password"></asp:TextBox>
+                        <br />
+                        <asp:RequiredFieldValidator ValidationGroup="valGroup1" ID="RequiredFieldValidator2" runat="server" ControlToValidate="passwordTextBox" Display="Dynamic" ErrorMessage="Please enter a lastname!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+            </table>
+
+            <br />
+            <asp:Button ValidationGroup="valGroup1" ID="loginButton" runat="server" Text="Login" Width="5em" OnClick="loginButton_Click"/>
+            <asp:Button ID="registerButton" runat="server" Text="Register" Width="5em" OnClick="registerButton_Click" />
+            <p hidden="hidden" style="color: #FF0000" id="incorrectUserPass" runat="server">That username/password combination does not exist!</p>
         </div>
     </form>
 </body>

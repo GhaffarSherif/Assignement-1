@@ -21,7 +21,7 @@ using System.Reflection;
 
 
 
-[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="school")]
+[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Assignment 1")]
 public partial class UserDataContext : System.Data.Linq.DataContext
 {
 	
@@ -38,7 +38,7 @@ public partial class UserDataContext : System.Data.Linq.DataContext
   #endregion
 	
 	public UserDataContext() : 
-			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["schoolConnectionString"].ConnectionString, mappingSource)
+			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Assignment_1ConnectionString"].ConnectionString, mappingSource)
 	{
 		OnCreated();
 	}
