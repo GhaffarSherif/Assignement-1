@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class register3 : System.Web.UI.Page
 {
+    UserDataContext dataContext = new UserDataContext();
     protected void Page_Load(object sender, EventArgs e)
     {
         UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
@@ -16,14 +17,33 @@ public partial class register3 : System.Web.UI.Page
             Validate();
             if (IsValid && checkbox.Checked)
             {
-                Session["street"] = street.Text;
-                Session["province"] = province.Text;
-                Session["city"] = city.Text;
-                Session["country"] = country.Text;
-                Session["postal "] = postal.Text;
+                registerUser();
                 Response.Redirect("~/main.aspx");
             }
         }
+    }
+
+    public void registerUser()
+    {
+        Profile add = new Profile
+        {
+            Username = (string)Session["username"],
+            Password = (string)Session["password"],
+            FirstName = (string)Session["firstname"],
+            Lastname = (string)Session["lastname"],
+            Gender = (string)Session["gender"],
+           // DateOfBirth = (string)Session["dob"],
+            Street = street.Text,
+            Province = province.Text,
+            City = city.Text,
+            //Country = country.Text,
+            PostalCode = postal.Text
+        };
+
+        dataContext.Profiles.InsertOnSubmit(add);
+        dataContext.SubmitChanges();
+
+       
     }
 
    

@@ -31,7 +31,6 @@
         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="postal" Display="Dynamic" ErrorMessage="Please enter a Postal code!" ForeColor="Red"></asp:RequiredFieldValidator>
         <br />
         <asp:CheckBox ID="checkbox" runat="server" Text="You accept our terms and conditions (there are none )" />
-        <asp:CustomValidator onservervalidate="checkbox_validator" ID="checkboxValidator" runat="server" Display="Dynamic" ErrorMessage="Please Check the checkbox !" ForeColor="Red" ControlToValidate="checkbox"></asp:CustomValidator>
         <br />
         <asp:Button ID="register" runat="server" Text="Register" />
     
