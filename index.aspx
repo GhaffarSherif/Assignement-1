@@ -31,7 +31,7 @@
             <br />
             <asp:Button ValidationGroup="valGroup1" ID="loginButton" runat="server" Text="Login" Width="5em" OnClick="loginButton_Click"/>
             <asp:Button ID="registerButton" runat="server" Text="Register" Width="5em" OnClick="registerButton_Click" />
-            <p hidden="hidden" style="color: #FF0000" id="incorrectUserPass" runat="server">That username/password combination does not exist!</p>
+            <asp:Label runat="server" ID="incorrectUserPass" ForeColor="Red" Visible="False">Incorrect username or password!</asp:Label>
         </div>
     </form>
 </body>
