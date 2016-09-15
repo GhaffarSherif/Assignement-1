@@ -14,25 +14,22 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <p>
-            <h3>User Information:</h3>
-            <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label7" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="Label8" runat="server" Text="Label"></asp:Label>
-        </p>
+        <h3>User Information:</h3>
+        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label7" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:Label ID="Label8" runat="server" Text="Label"></asp:Label>
         <br />
         <br />
         Send a message:<br />
@@ -41,9 +38,7 @@
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="messageTextBox" Display="Dynamic" ErrorMessage="Please enter a message" ForeColor="Red"></asp:RequiredFieldValidator>
         <br />
         <br />
-        <asp:Button ID="sendMessageButton" runat="server" Text="Send Message" />
-            
-    </div>
+        <asp:Button ID="sendMessageButton" runat="server" Text="Send Message" OnClick="sendMessage" />
     </form>
 </body>
 </html>

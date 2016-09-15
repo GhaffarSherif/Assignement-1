@@ -29,13 +29,18 @@ public partial class UserDataContext : System.Data.Linq.DataContext
 	
   #region Extensibility Method Definitions
   partial void OnCreated();
-  partial void InsertProfile(Profile instance);
-  partial void UpdateProfile(Profile instance);
-  partial void DeleteProfile(Profile instance);
   partial void InsertMessage(Message instance);
   partial void UpdateMessage(Message instance);
   partial void DeleteMessage(Message instance);
+  partial void InsertProfile(Profile instance);
+  partial void UpdateProfile(Profile instance);
+  partial void DeleteProfile(Profile instance);
   #endregion
+
+    public DateTime GetDate()
+    {
+        return ExecuteQuery<DateTime>("SELECT GETDATE()").First();
+    }
 	
 	public UserDataContext() : 
 			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["masterConnectionString"].ConnectionString, mappingSource)
@@ -67,6 +72,14 @@ public partial class UserDataContext : System.Data.Linq.DataContext
 		OnCreated();
 	}
 	
+	public System.Data.Linq.Table<Message> Messages
+	{
+		get
+		{
+			return this.GetTable<Message>();
+		}
+	}
+	
 	public System.Data.Linq.Table<Profile> Profiles
 	{
 		get
@@ -74,12 +87,244 @@ public partial class UserDataContext : System.Data.Linq.DataContext
 			return this.GetTable<Profile>();
 		}
 	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Message")]
+public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
+{
 	
-	public System.Data.Linq.Table<Message> Messages
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _MessageId;
+	
+	private string _Sender;
+	
+	private string _Reciever;
+	
+	private System.Nullable<System.TimeSpan> _Time;
+	
+	private string _MessageText;
+	
+	private EntityRef<Profile> _Profile;
+	
+	private EntityRef<Profile> _Profile1;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMessageIdChanging(int value);
+    partial void OnMessageIdChanged();
+    partial void OnSenderChanging(string value);
+    partial void OnSenderChanged();
+    partial void OnRecieverChanging(string value);
+    partial void OnRecieverChanged();
+    partial void OnTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnTimeChanged();
+    partial void OnMessageTextChanging(string value);
+    partial void OnMessageTextChanged();
+    #endregion
+	
+	public Message()
+	{
+		this._Profile = default(EntityRef<Profile>);
+		this._Profile1 = default(EntityRef<Profile>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int MessageId
 	{
 		get
 		{
-			return this.GetTable<Message>();
+			return this._MessageId;
+		}
+		set
+		{
+			if ((this._MessageId != value))
+			{
+				this.OnMessageIdChanging(value);
+				this.SendPropertyChanging();
+				this._MessageId = value;
+				this.SendPropertyChanged("MessageId");
+				this.OnMessageIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sender", DbType="NVarChar(50)")]
+	public string Sender
+	{
+		get
+		{
+			return this._Sender;
+		}
+		set
+		{
+			if ((this._Sender != value))
+			{
+				if (this._Profile1.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSenderChanging(value);
+				this.SendPropertyChanging();
+				this._Sender = value;
+				this.SendPropertyChanged("Sender");
+				this.OnSenderChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reciever", DbType="NVarChar(50)")]
+	public string Reciever
+	{
+		get
+		{
+			return this._Reciever;
+		}
+		set
+		{
+			if ((this._Reciever != value))
+			{
+				if (this._Profile.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnRecieverChanging(value);
+				this.SendPropertyChanging();
+				this._Reciever = value;
+				this.SendPropertyChanged("Reciever");
+				this.OnRecieverChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="Time")]
+	public System.Nullable<System.TimeSpan> Time
+	{
+		get
+		{
+			return this._Time;
+		}
+		set
+		{
+			if ((this._Time != value))
+			{
+				this.OnTimeChanging(value);
+				this.SendPropertyChanging();
+				this._Time = value;
+				this.SendPropertyChanged("Time");
+				this.OnTimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageText", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string MessageText
+	{
+		get
+		{
+			return this._MessageText;
+		}
+		set
+		{
+			if ((this._MessageText != value))
+			{
+				this.OnMessageTextChanging(value);
+				this.SendPropertyChanging();
+				this._MessageText = value;
+				this.SendPropertyChanged("MessageText");
+				this.OnMessageTextChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profile_Message", Storage="_Profile", ThisKey="Reciever", OtherKey="Username", IsForeignKey=true)]
+	public Profile Profile
+	{
+		get
+		{
+			return this._Profile.Entity;
+		}
+		set
+		{
+			Profile previousValue = this._Profile.Entity;
+			if (((previousValue != value) 
+						|| (this._Profile.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Profile.Entity = null;
+					previousValue.Messages.Remove(this);
+				}
+				this._Profile.Entity = value;
+				if ((value != null))
+				{
+					value.Messages.Add(this);
+					this._Reciever = value.Username;
+				}
+				else
+				{
+					this._Reciever = default(string);
+				}
+				this.SendPropertyChanged("Profile");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Profile_Message1", Storage="_Profile1", ThisKey="Sender", OtherKey="Username", IsForeignKey=true)]
+	public Profile Profile1
+	{
+		get
+		{
+			return this._Profile1.Entity;
+		}
+		set
+		{
+			Profile previousValue = this._Profile1.Entity;
+			if (((previousValue != value) 
+						|| (this._Profile1.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Profile1.Entity = null;
+					previousValue.Messages1.Remove(this);
+				}
+				this._Profile1.Entity = value;
+				if ((value != null))
+				{
+					value.Messages1.Add(this);
+					this._Sender = value.Username;
+				}
+				else
+				{
+					this._Sender = default(string);
+				}
+				this.SendPropertyChanged("Profile1");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }
@@ -441,6 +686,7 @@ public partial class Profile : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Profile1 = null;
 	}
 }
+<<<<<<< HEAD
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Message")]
 public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
@@ -681,4 +927,6 @@ public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 }
+=======
+>>>>>>> d2381cbe2a0835f0301e572542e020e240ab7956
 #pragma warning restore 1591
