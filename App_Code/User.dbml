@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Assignment 1" Class="UserDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\Projects;Initial Catalog=&quot;Assignment 1&quot;;Integrated Security=True;Connect Timeout=30" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Assignment_1ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="master" Class="UserDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\ProjectsV12;Initial Catalog=master;Integrated Security=True;Connect Timeout=30" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="masterConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Profile" Member="Profiles">
     <Type Name="Profile">
       <Column Name="Username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Lastname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Gender" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -11,6 +11,7 @@
       <Column Name="Street" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Province" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="PostalCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Profile_Message" Member="Messages" ThisKey="Username" OtherKey="Reciever" Type="Message" />
       <Association Name="Profile_Message1" Member="Messages1" ThisKey="Username" OtherKey="Sender" Type="Message" />
@@ -18,11 +19,11 @@
   </Table>
   <Table Name="dbo.Message" Member="Messages">
     <Type Name="Message">
-      <Column Name="MessageId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Sender" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Reciever" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Time" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
-      <Column Name="Message" Member="Message1" Type="System.String" DbType="NText" CanBeNull="true" />
+      <Column Name="MessageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Sender" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Reciever" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="MessageText" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Profile_Message" Member="Profile" ThisKey="Reciever" OtherKey="Username" Type="Profile" IsForeignKey="true" />
       <Association Name="Profile_Message1" Member="Profile1" ThisKey="Sender" OtherKey="Username" Type="Profile" IsForeignKey="true" />
     </Type>

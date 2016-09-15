@@ -25,6 +25,7 @@
         Date Of Birth:<br />
         <asp:TextBox ID="dateOfBirth" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="dateOfBirth" Display="Dynamic" ErrorMessage="Please enter a date of birth!" ForeColor="Red"></asp:RequiredFieldValidator>
+        &nbsp;<asp:RegularExpressionValidator  ID="dateValidator" runat="server" ControlToValidate="dateOfBirth" Display="Dynamic" ErrorMessage="Please enter a date in the format &quot; MM/DD/YYYY&quot;" ForeColor="Red" ValidationExpression="^(?:0[1-9]|1[12])/(?:[0-2][0-9]|3[01])/[0-9]{4}"></asp:RegularExpressionValidator>
         <br />
         <asp:Button ID="next" runat="server" Text="Next" />
     </div>

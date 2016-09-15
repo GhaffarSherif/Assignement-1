@@ -32,19 +32,15 @@ public partial class register3 : System.Web.UI.Page
             FirstName = (string)Session["firstname"],
             Lastname = (string)Session["lastname"],
             Gender = (string)Session["gender"],
-           // DateOfBirth = (string)Session["dob"],
+            DateOfBirth = Convert.ToDateTime((string)Session["dob"]),
             Street = street.Text,
             Province = province.Text,
             City = city.Text,
-            //Country = country.Text,
+            Country = country.Text,
             PostalCode = postal.Text
         };
 
         dataContext.Profiles.InsertOnSubmit(add);
         dataContext.SubmitChanges();
-
-       
-    }
-
-   
+    }  
 }
